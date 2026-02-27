@@ -628,8 +628,14 @@ Lưu ý:
       body: JSON.stringify({ prompt })
     });
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'API error');
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error('API trả về không phải JSON: ' + text.slice(0, 120));
+    }
+    if (!response.ok) throw new Error(data.error || 'API error ' + response.status);
     const raw = data.content?.[0]?.text || '';
     const clean = raw.replace(/```json|```/g, '').trim();
     const result = JSON.parse(clean);

@@ -1,4 +1,10 @@
 {
+  "version": 2,
+  "functions": {
+    "api/analyze.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     { "source": "/page2", "destination": "/page2.html" },
     { "source": "/cv-review", "destination": "/cv-review.html" }
